@@ -219,5 +219,5 @@ avalible = { -- ...to download
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
 } --scratch.mit.edu/discuss/topic/588771
 function update(v)
-    love.window.showMessageBox("test","test,{"test"})    
+    love.window.showMessageBox("test","test",{"test"})    
 end
