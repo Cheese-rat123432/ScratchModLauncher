@@ -1,13 +1,24 @@
 --uses Squeak 3.7.1 VM for Win32 (works on 64 bit systems too) for launching 1.x scratch mods
 nativefs = require"nativefs"
+http = require"socket.http"
 dofile("utf8 2.lua")
+function update(v)
+
+end
 function love.load()
+    version = {}
+    version.build = "1.3"
+    version.date = "18.11.2022"
+    bottom = {"Launch","Discover","Settings","img",["icons"]={[4]=love.graphics.newImage("icons/open path.png")}}
+    if updateONstart then
+        dupdatelua(true)
+    end
     dofile("whoasked.lua")
+    settings = {{"Warn if NG player will be needed on start",wrnNGPLAYER,"bool","wrnNGPLAYER","--set to true and it will annoy u every time u open it up"},{"Say that path has been copied when NG player starts",wrnNGPPPASTED,"bool","wrnNGPPPASTED","--set it to true and it will annoy u every time u try to open .swf scratch mods"},{"Look for updates on start",updateONstart,"bool","updateONstart","--set it to true and it will update avalible mods every time you open it up"},{"Save changes",function() changestngs() end,"buttn"},{"Look for updates",function() dupdatelua(true) end,"buttn"},{"Update list of mods",function() dupdatelua(false) end,"buttn"},{"version "..version.date.." (build "..version.build..") by Foxi135",function() love.system.openURL("https://scratch.mit.edu/users/Foxi135") love.system.openURL("https://scratch.mit.edu/discuss/topic/642055") end,"buttn"},{"Quit",function() love.event.quit() end,"buttn"}}
     font = love.graphics.newFont("Secular_One/SecularOne-Regular.ttf",25)
     unsupported = love.graphics.newFont("Noti Sans JP/NotoSansJP-Bold.otf",25)
     love.graphics.setFont(font)
     love.graphics.setDefaultFilter("nearest","nearest")
-    opnpthico = love.graphics.newImage("icons/open path.png")
     dwnlddico = love.graphics.newImage("icons/downloaded.png")
     scratchfrmico = love.graphics.newImage("icons/Glow-S.png")
     msv = {["1.x"]=love.graphics.newImage("icons/1.x.png"),["2.0"]=love.graphics.newImage("icons/2.0.png"),["3.0"]=love.graphics.newImage("icons/3.0.png")}
@@ -15,6 +26,34 @@ function love.load()
     clicked = false
     scroll = 0
     tab = 10
+    txt = nil
+end
+function changestngs()
+    local file = ""
+    for k, v in pairs(settings) do
+        if (v[3] == "string") then
+            file = file..v[4].." = "..v[2].." "..v[5].."\n"
+        elseif (v[3] == "bool") then
+            file = file..v[4].." = "..({[true]="true",[false]="false"})[v[2]].." "..(v[5] or "").."\n"
+        end
+    end
+    io.write(file)
+    nativefs.write("whoasked.lua",file)
+end
+function dupdatelua(updatever)--downloads update.lua
+    local url = "https://raw.githubusercontent.com/Foxi135/ScratchModLauncher/main/update.lua"
+    nativefs.write("avalible-old.lua",nativefs.read("avalible.lua"))
+    nativefs.remove("avalible.lua")
+    os.execute("cd \""..nativefs.getWorkingDirectory().."\" && curl "..url.." -o avalible.lua")
+    if (nativefs.read("avalible.lua") == "")or(nativefs.read("avalible.lua") == "404: Not Found") then
+        love.window.showMessageBox("Failed","Failed to download\nupdate.lua from Github")
+        nativefs.write("avalible.lua",nativefs.read("avalible-old.lua"))
+    else
+        load()
+        if updatever then
+            update(version)
+        end
+    end
 end
 function graphicprint(text,x,y,size)
     if not size then
@@ -143,35 +182,6 @@ function love.draw()
                 shift = shift+fh
             end
         end
-        if true then --wrap
-            local w = font:getWidth("Discover")
-            love.graphics.setColor(0,0,0)
-            love.graphics.print("Discover",(ww-w*0.75-20)/2,wh-20,nil,0.75)
-            if inBox((ww-w-20)/2,wh-20,w,20) then
-                love.graphics.setColor(1,1,1,0.4)
-                if love.mouse.isDown(1) then
-                    if not clicked then
-                        tab = 20
-                    end
-                end
-            else
-                love.graphics.setColor(1,1,1,0.2)
-            end
-            love.graphics.rectangle("fill",(ww-w-20)/2,wh-20,w,20)
-            love.graphics.setColor(0,0,0)
-            love.graphics.draw(opnpthico,(ww-w-13)/2+w,wh-16,nil,15/opnpthico:getWidth())
-            if inBox((ww-w-18)/2+w,wh-20,20,20) then
-                love.graphics.setColor(1,1,1,0.4)
-                if love.mouse.isDown(1) then
-                    if not clicked then
-                        os.execute("start explorer \""..nativefs.getWorkingDirectory().."\"")
-                    end
-                end
-            else
-                love.graphics.setColor(1,1,1,0.2)
-            end
-            love.graphics.rectangle("fill",(ww-w-18)/2+w,wh-20,20,20)
-        end
     end
     if tab == 2 then
         for k, v in ipairs(avalible) do
@@ -213,49 +223,116 @@ function love.draw()
             end
             shift = shift+fh
         end
-        if true then --wrap
-            local w = font:getWidth("Launch")
+    end
+    if tab == 3 then
+        local bts = {[true]="Yes",[false]="No"}
+        local ffh = fh*0.75
+        local shift = 0
+        for k, v in pairs(settings) do
             love.graphics.setColor(0,0,0)
-            love.graphics.print("Launch",(ww-w*0.75-20)/2,wh-20,nil,0.75)
-            if inBox((ww-w-20)/2,wh-20,w,20) then
-                love.graphics.setColor(1,1,1,0.4)
-                if love.mouse.isDown(1) then
-                    if not clicked then
-                        tab = 10
+            love.graphics.print(v[1],5,shift,nil,0.75)
+            if v[3] == "bool" then
+                love.graphics.print(bts[v[2]],ww-font:getWidth(bts[v[2]])*0.75-5,shift,nil,0.75)
+                if (my>shift)and(my<ffh+shift)and(my<wh-20) then
+                    love.graphics.setColor(1,1,1,0.2)
+                    if love.mouse.isDown(1) then
+                        love.graphics.setColor(1,1,1,0.5)
+                        if (not clicked) then
+                            settings[k][2] = not settings[k][2]
+                        end
                     end
+                    love.graphics.rectangle("fill",0,shift,ww,ffh)
                 end
-            else
-                love.graphics.setColor(1,1,1,0.2)
+                shift = shift+ffh
             end
-            love.graphics.rectangle("fill",(ww-w-20)/2,wh-20,w,20)
-            love.graphics.setColor(0,0,0)
-            love.graphics.draw(opnpthico,(ww-w-13)/2+w,wh-16,nil,15/opnpthico:getWidth())
-            if inBox((ww-w-18)/2+w,wh-20,20,20) then
-                love.graphics.setColor(1,1,1,0.4)
-                if love.mouse.isDown(1) then
-                    if not clicked then
-                        os.execute("start explorer \""..nativefs.getWorkingDirectory().."\"")
+            if v[3] == "string" then
+                love.graphics.print(v[2],ww-font:getWidth(v[2])*0.75-5,shift,nil,0.75)
+                love.graphics.setColor(0,0,0,0.8)
+                love.graphics.rectangle("fill",ww-font:getWidth(v[2])*0.75-5,shift+ffh-2,font:getWidth(v[2])*0.75,2)
+                if (my>shift)and(my<ffh+shift)and(my<wh-20) then
+                    love.graphics.setColor(1,1,1,0.2)
+                    if love.mouse.isDown(1) then
+                        love.graphics.setColor(1,1,1,0.5)
+                        if (not clicked) then
+                            txt = {["x"]=10+font:getWidth(v[1])*0.75,["y"]=shift,["hold"]=k,["txt"]=v[2],["done"]=function(txt,hold) settings[k][2] = txt end}
+                        end
                     end
+                    love.graphics.rectangle("fill",0,shift,ww,ffh)
                 end
-            else
-                love.graphics.setColor(1,1,1,0.2)
+                shift = shift+ffh
             end
-            love.graphics.rectangle("fill",(ww-w-18)/2+w,wh-20,20,20)
+            if v[3] == "buttn" then
+                if (my>shift)and(my<ffh+shift)and(my<wh-20) then
+                    love.graphics.setColor(1,1,1,0.2)
+                    if love.mouse.isDown(1) then
+                        love.graphics.setColor(1,1,1,0.5)
+                        if (not clicked) then
+                            v[2]()
+                        end
+                    end
+                    love.graphics.rectangle("fill",0,shift,ww,ffh)
+                end
+                shift = shift+ffh
+            end
+        end
+    end
+    if txt then
+        love.graphics.setColor(0.9,0.9,0.9)
+        love.graphics.rectangle("fill",txt.x-2.5,txt.y,font:getWidth(txt.txt)*0.75+5,fh*0.75)
+        love.graphics.setColor(0,0,0)
+        love.graphics.print(txt.txt,txt.x,txt.y,nil,0.75)
+        function love.textinput(t)
+            txt.txt = txt.txt..t
+        end
+    end
+    if true then --wrap
+        local width = 0
+        for k, v in ipairs(bottom) do
+            if not (v == "img") then
+                width = width+font:getWidth(v)*0.75+12
+            else
+                width=width+20
+            end
+        end
+        local shift = (ww-width)/2
+        for k, v in ipairs(bottom) do
+            local fw = font:getWidth(v)*0.75
+
+            if inBox(shift,wh-20,fw+10,20) and love.mouse.isDown(1) and (not clicked) then
+                tab = k*10
+            end
+            if not (v == "img") then
+                if tab == k then
+                    love.graphics.setColor(0.9,0.9,0.9)
+                    love.graphics.rectangle("fill",shift,wh-22,fw+10,22)
+                else
+                    love.graphics.setColor(0.9,0.9,0.9,0.75)
+                    love.graphics.rectangle("fill",shift,wh-20,fw+10,20)
+                end
+                love.graphics.setColor(0,0,0,0.9)
+                love.graphics.print(v,shift+5,wh-22,nil,0.75)
+            else
+                if tab == k then
+                    love.graphics.setColor(0.9,0.9,0.9)
+                    love.graphics.rectangle("fill",shift,wh-22,20,22)
+                else
+                    love.graphics.setColor(0.9,0.9,0.9,0.75)
+                    love.graphics.rectangle("fill",shift,wh-20,20,20)
+                end
+                love.graphics.setColor(0,0,0,0.9)
+                love.graphics.draw(bottom.icons[k],shift+(20-15)/2,wh-20+(20-15)/2,nil,(15/(bottom.icons[k]):getWidth()))
+            end
+            shift = shift+fw+12
         end
     end
     if tab>9 then
         tab = tab/10
-        love.window.setTitle("Scratch mod launcher"..({""," - Discover"})[tab])
+        love.window.setTitle("Scratch mod launcher"..({""," - Discover"," - Settings",""," - Update"})[tab])
         scroll = 0
     end
-    local bottomtxt = "version 17.11.2022 (build 1.2) by Foxi135"
-    love.graphics.setColor(0,0,0,0.2)
-    love.graphics.print(bottomtxt,ww-font:getWidth(bottomtxt)*0.4,wh-font:getHeight()*0.4,nil,0.4)
-    if (mx>(ww-font:getWidth(bottomtxt)*0.5)) and (my>(wh-font:getHeight()*0.5)) then
-        if love.mouse.isDown(1) and (not clicked) then
-            love.system.openURL("https://scratch.mit.edu/users/Foxi135")
-            love.system.openURL("https://scratch.mit.edu/discuss/topic/642055")
-        end
+    if tab == 4 then
+        tab = 1
+        os.execute("start explorer \""..nativefs.getWorkingDirectory().."\"")
     end
     if love.mouse.isDown(1) then
         clicked = true
@@ -280,6 +357,15 @@ function inBox(x,y,xs,ys)
     return (mx>x)and(my>y)and(mx<x+xs)and(my<y+ys)and love.window.hasMouseFocus()
 end
 function love.keypressed(key)
+    if txt then
+        if key=="return" then
+            txt.done(txt.txt,txt.hold)
+            txt = nil
+        end
+        if key=="backspace" then
+            txt.txt = string.utf8sub(txt.txt,1,string.utf8len(txt.txt)-1)
+        end
+    end
     if love.keyboard.isDown("lctrl") then
         if key=="r" then
             load()
