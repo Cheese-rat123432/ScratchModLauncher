@@ -217,4 +217,7 @@ avalible = { -- ...to download
     ["Zambya"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=69381",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=69381",["defold"]="1.x"},
     "Zing!",
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
-} --scratch.mit.edu/discuss/topic/588771 
+} --scratch.mit.edu/discuss/topic/588771
+function update(v)
+    love.window.showMessageBox("test","test,{"test"})    
+end
