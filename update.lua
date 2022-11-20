@@ -218,12 +218,5 @@ avalible = { -- ...to download
     "Zing!",
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
 } --scratch.mit.edu/discuss/topic/588771
-function update(v)
-    if (v.build == "1.3") and (v.date == "18.11.2022") then
-        love.window.showMessageBox("Done","Your program is up to date!",{"ok👍"})
-    else
-        if love.window.showMessageBox("Done","Update avalible",{"Download","ok"})==1 then
-            love.system.openURL("https://github.com/Foxi135/ScratchModLauncher/releases")
-        end
-    end
-end
+currentv={["build"]="1.3",["date"]="18.11.2022"}
+
