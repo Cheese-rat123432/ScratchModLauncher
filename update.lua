@@ -185,8 +185,8 @@ avalible = { -- ...to download
     ["Star Truss"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=41915&p=2",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=41915&p=2",["defold"]="1.x"},
     "Streak",
     ["Streak"]={["url"]="http://web.archive.org/web/20100903075459/http://streak.t35.com/downloads.html",["defold"]="1.x"},
-    "Strech3",
-    ["Strech3"]={["url"]="https://stretch3.github.io/",["defold"]="3.0"},
+    "Stretch3",
+    ["Stretch3"]={["url"]="https://stretch3.github.io/",["defold"]="3.0"},
     "Swipe",
     ["Swipe"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=34734",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=34734",["defold"]="1.x"},
 
