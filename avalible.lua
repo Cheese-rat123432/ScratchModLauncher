@@ -136,3 +136,6 @@ avalible = { -- ...to download
     "QUERTY 2",
     ["QUERTY 2"]={["url"]="https://www.dropbox.com/s/kyxiytezqcg241n/Scratch.swf",["Scratch"]="https://scratch.mit.edu/discuss/topic/182054/",["defold"]="2.0"}
 }
+curentv = {}
+curentv.build = "1.4"
+curentv.date = "23.11.2022"
