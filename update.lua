@@ -218,5 +218,5 @@ avalible = { -- ...to download
     "Zing!",
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
 } --scratch.mit.edu/discuss/topic/588771
-currentv={["build"]="1.3",["date"]="18.11.2022"}
+currentv={["build"]="1.4",["date"]="23.11.2022"}
 
