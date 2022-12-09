@@ -221,5 +221,5 @@ avalible = { -- ...to download
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
 }
 curentv = {}
-curentv.build = "1.4"
-curentv.date = "23.11.2022"
+curentv.build = "2"
+curentv.date = "9.12.2022"
