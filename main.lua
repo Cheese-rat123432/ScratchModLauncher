@@ -1,5 +1,5 @@
 --uses Squeak 3.7.1 VM for Win32 (works on 64 bit systems too) for launching 1.x scratch mods
-nativefs = require"nativefs"
+nativefs = require"nativefs" nativefs.remove("download test")
 --http = require"socket.http"
 dofile("utf8 2.lua")
 function update(v)end
@@ -7,7 +7,7 @@ function love.load()
     dofile("settings.lua")
     version = {}
     version.build = "2"
-    version.date = "9.12.2022"
+    version.date = "11.12.2022"
     bottom = {"Launch","Discover","Settings","img",["icons"]={[4]=love.graphics.newImage("icons/open path.png")}}
     if updateONstart then
         dupdatelua()
@@ -26,6 +26,7 @@ function love.load()
         end
     end
     function setsettingstable()
+        dw,dh = love.window.getDesktopDimensions()
         settings = {
             {"Set system background as background (beta)",systemBG,"bool","systemBG"},
             {"Dark background",darkBG,"bool","darkBG"},
@@ -43,7 +44,9 @@ function love.load()
             {"Say that path has been copied when NG player starts",wrnNGPPPASTED,"bool","wrnNGPPPASTED","--set it to true and it will annoy u every time u try to open .swf scratch mods"},
             {"Look for updates on start",updateONstart,"bool","updateONstart","--set it to true and it will update avalible mods every time you open it up"},
             {"On start open tab",table.noOfItem({"Launch","Discover","Settings"},startTAB),"list","startTAB",["content"]={"Launch","Discover","Settings"},["rightclick"]={["x"]=50,["y"]=50,["allClicked"]=function(i) settings[15][2]=i end,{"Launch"},{"Discover"},{"Settings (if you need this XD)"}}},
-
+            {"","","empty"},
+            {"Desktop width",uDW or dw,"number","uDW"},
+            {"Desktop height",uDH or dh,"number","uDH"},
             {"","","empty"},
             {"Look for updates",function() dupdatelua(true) end,"buttn"},
             {"Update list of mods",function() dupdatelua(false) end,"buttn"},
@@ -116,6 +119,8 @@ function changestngs()
     for k, v in pairs(settings) do
         if (v[3] == "string") then
             file = file..v[4].." = \""..v[2].."\" "..(v[5] or "").."\n"
+        elseif (v[3] == "number") then
+            file = file..v[4].." = "..tostring(v[2]).." "..(v[5] or "").."\n"
         elseif (v[3] == "bool") then
             file = file..v[4].." = "..({[true]="true",[false]="false"})[v[2]].." "..(v[5] or "").."\n"
         elseif v[4]=="language" then
@@ -139,6 +144,12 @@ if systemBG then
     else
         systemBG = false
     end
+end
+if uDW then
+    dw = uDW
+end
+if uDH then
+    dh = uDH
 end
 ]]  local presbg = systemBG
     local prelng = language 
@@ -281,13 +292,13 @@ local function setColor(r,g,b,a)
 end
 function love.draw()
     love.graphics.setColor(1,1,1)
+    ww,wh = love.graphics.getDimensions()
     if systemBG and bg then
         local wx,wy = love.window.getPosition()
-        local dw,dh = love.window.getDesktopDimensions()
-        love.graphics.draw(bg,-wx,-wy,nil,dw/bg:getWidth())
+        local bw,bh = bg:getWidth(),bg:getHeight()
+        love.graphics.draw(bg,-wx,-wy,nil,dw/bw)
     end
     mx,my = love.mouse.getPosition()
-    ww,wh = love.graphics.getDimensions()
     fh = font:getHeight()
     love.graphics.setColor(0,0,0)
     local shift = 0+(scroll*fh)
@@ -501,6 +512,22 @@ function love.draw()
                     love.graphics.rectangle("fill",0,shift,ww,ffh)
                 end
                 shift = shift+ffh
+            end  
+            if v[3] == "number" then
+                love.graphics.print(tostring(v[2]),ww-font:getWidth(tostring(v[2]))*0.75-5,shift,nil,0.75)
+                setColor(1,1,1,0.8)
+                love.graphics.rectangle("fill",ww-font:getWidth(tostring(v[2]))*0.75-5,shift+ffh-2,font:getWidth(tostring(v[2]))*0.75,2)
+                if (my>shift)and(my<ffh+shift)and(my<wh-20) then
+                    love.graphics.setColor(1,1,1,0.2)
+                    if love.mouse.isDown(1) then
+                        love.graphics.setColor(1,1,1,0.5)
+                        if (not clicked) then
+                            txt = {["x"]=10+font:getWidth(v[1])*0.75,["y"]=shift,["hold"]=k,["txt"]=tostring(v[2]),["done"]=function(txt,hold) settings[k][2] = tonumber(txt) changed = true end}
+                        end
+                    end
+                    love.graphics.rectangle("fill",0,shift,ww,ffh)
+                end
+                shift = shift+ffh
             end            
             if v[3] == "list" then
                 love.graphics.print(v["content"][v[2]] or "",ww-font:getWidth(v["content"][v[2]] or "")*0.75-5,shift,nil,0.75)
@@ -639,6 +666,9 @@ function love.draw()
             shift = shift+ffh
         end
     end
+    local _, _, flags = love.window.getMode()
+    local width, height = love.window.getDesktopDimensions(flags.display)
+    love.graphics.print(("display %d: %d x %d"):format(flags.display, width, height), 4, 10)
 end
 function love.mousepressed(mx,my,button)
     if rightclick then

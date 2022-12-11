@@ -1,5 +1,5 @@
 show={}
-systemBG = false 
+systemBG = true 
 darkBG = true 
 searchFUNC = true 
 sortBY = "name" 
@@ -9,11 +9,9 @@ show["1.x"] = true
 show["noScratchLink"] = true 
 show["wScratchLink"] = true 
 wrnNGPLAYER = false --set to true and it will annoy u every time u open it up
-wrnNGPPPASTED = true --set it to true and it will annoy u every time u try to open .swf scratch mods
+wrnNGPPPASTED = false --set it to true and it will annoy u every time u try to open .swf scratch mods
 updateONstart = false --set it to true and it will update avalible mods every time you open it up
 startTAB = "Launch" 
-customBG = false 
-bgNAME = "custom.png" 
 changeSTNGSonEXIT = false 
 if darkBG then
     love.graphics.setBackgroundColor(0.2,0.2,0.2)
@@ -29,4 +27,10 @@ if systemBG then
     else
         systemBG = false
     end
+end
+if uDW then
+    dw = uDW
+end
+if uDH then
+    dh = uDH
 end
