@@ -72,7 +72,7 @@ avalible = { -- ...to download
     "Gingerline",
     ["Gingerline"]={["url"]="https://drive.google.com/file/d/0BxUGjFM7MSFcbDJfSHBxdC1Hd1k/view?resourcekey=0-TlRBl8qa0SYjyimZ61jjFw",["Scratch"]="https://scratch.mit.edu/discuss/topic/58902/",["defold"]="2.0"},
     "Gopher",
-    ["Gopher"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=66268",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=66268",["defold"]="1.x"},
+    ["Gopher"]={["url"]="http://medianet.weebly.com/",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=66268",["defold"]="1.x"},
     "Golucky",
     ["Golucky"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=110028",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=110028",["defold"]="1.x"},
     "Gloop",
@@ -219,7 +219,7 @@ avalible = { -- ...to download
     ["Zambya"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=69381",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=69381",["defold"]="1.x"},
     "Zing!",
     ["Zing!"]={["url"]="http://zingmod.weebly.com/",["defold"]="1.x"}
-}
+} --https://scratch.mit.edu/discuss/topic/588771/
 curentv = {}
 curentv.build = "2"
 curentv.date = "11.12.2022"
