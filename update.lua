@@ -222,4 +222,4 @@ avalible = { -- ...to download
 }
 curentv = {}
 curentv.build = "2"
-curentv.date = "9.12.2022"
+curentv.date = "11.12.2022"

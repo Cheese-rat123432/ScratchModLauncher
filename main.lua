@@ -666,9 +666,6 @@ function love.draw()
             shift = shift+ffh
         end
     end
-    local _, _, flags = love.window.getMode()
-    local width, height = love.window.getDesktopDimensions(flags.display)
-    love.graphics.print(("display %d: %d x %d"):format(flags.display, width, height), 4, 10)
 end
 function love.mousepressed(mx,my,button)
     if rightclick then
