@@ -22,6 +22,8 @@ avalible = { -- ...to download
     ["blook"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=107285",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=107285",["defold"]="1.x"},
     "Blockode",
     ["Blockode"]={["url"]="http://ericdutra.com/blockode.html",["defold"]="1.x"},
+    "Blocktalk",
+    ["Blocktalk"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=42427",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=42427",["defold"]="1.x"},
     "Box2D",
     ["Box2D"]={["url"]="https://griffpatch.github.io/scratch-gui/",["defold"]="3.0"},
 
