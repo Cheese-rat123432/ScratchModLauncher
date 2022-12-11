@@ -93,7 +93,7 @@ avalible = { -- ...to download
     ["Insanity"]={["url"]="http://insanity.jvvgindustries.com/",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=108085",["defold"]="1.x"},
 
     "JNXT",
-    ["JNXT"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=55165",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=55165",["defold"]="1.x"}
+    ["JNXT"]={["url"]="https://code.google.com/archive/p/jimmyscratchlab/downloads",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=55165",["defold"]="1.x"}
 ,
     "Kitcat",
     ["Kitcat"]={["url"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=59463",["Scratch"]="https://scratcharchive.asun.co/forums/viewtopic.php?id=59463",["defold"]="1.x"},
