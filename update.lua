@@ -1,4 +1,4 @@
-avalible = { -- ...to download
+avalible = {
     --"Scrap", -- was used for testing
     --["Scrap"]={["url"]="https://towerofnix.github.io/scrap-mod/",["defold"]="2.0",["Scratch"]="https://scratch.mit.edu/discuss/topic/229671/"},
     "Adacraft",
