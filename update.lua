@@ -142,6 +142,8 @@ avalible = { -- ...to download
     ["RAGE"]={["url"]="https://www.mediafire.com/file/5qvmbwmvp3kr4nl/Rage_1.3.1.zip/file/",["defold"]="1.x"},
     "Rocket",
     ["Rocket"]={["url"]="https://www.mediafire.com/file/x1iku1vc2j2w5le/Rocket_0.3.zip/file",["defold"]="1.x"},
+    "Rocket Blocks",
+    ["Rocket Blocks"]={["url"]="https://rocket.jdev.eu.org/",["Scratch"]="https://scratch.mit.edu/discuss/topic/588771/",["defold"]="3.0"},
 
     "S1mple",
     ["S1mple"]={["url"]="http://modscratch.weebly.com/downloads.html",["Scratch"]="https://scratch.mit.edu/discuss/topic/103094/",["defold"]="1.x"},
