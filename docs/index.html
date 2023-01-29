@@ -1,0 +1,132 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+    body {font-family: "Roboto Slab"; font-size: 20px; background-color: black; color: white}
+a:link {
+  color: rgb(160, 160, 255);
+  background-color: transparent;
+}
+
+a:visited {
+  color: rgb(190, 190, 255);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(190, 190, 255);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: rgb(200, 200, 255);
+  background-color: transparent;
+  text-decoration: underline;
+}
+div.note {
+  background-color: rgba(255, 180, 0, 0.5);
+  padding-left: 5px;
+}
+div.forerrors {
+  background-color: rgb(50, 50, 50);
+  padding-left: 5px;
+}
+div.intro {
+    background-image: url('screenshots/sml blured.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+.links{
+  background: rgba(0,0,0, 0.25);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+</style>
+<div class="intro">
+<br>
+<center>
+    <img src="scratch launcher.png" alt="sml">
+    <h1 style="font-size:50px;">Scratch Mod Launcher</h1><h3>One app to manage all your Scratch mods</h3><p class="links"><a href="https://github.com/Foxi135/ScratchModLauncher/releases">Download</a> - <a href="https://scratch.mit.edu/discuss/topic/642055/">Forum</a> - <a href="https://github.com/Foxi135/ScratchModLauncher">Github</a></p><br></center>
+</div>
+
+
+
+<h1 class="howto">How to...</h1>
+<a href="#setupmod">Setup a mod</a><br>
+<a href="#setupmoddiscover">- from Discover tab</a><br>
+<a href="#setupmodmanualy">- manualy</a><br><br>
+<a href="#troubles">Fix issues</a><br>
+<a href="#longdownload">- Update download is taking too much time/is stuck</a><br>
+<a href="#missingfiles">- Missing files</a><br>
+<a href="#missingsystemfiles">- Missing system (dll) files</a><br>
+<br><br>
+
+<h1 id="setupmod">Setup a mod</h1>
+<h2 id="setupmoddiscover">Setup a mod from Discover tab</h2>
+<p>Choose a mod, rightclick it and click "Setup a directory for mod"</p>
+<div class="note"><p>Note: Some of the mods listed in Discover tab does not link to site with download, that means some mods cannot be downloaded</p></div>
+<img src="screenshots/rightclickmoddiscover.png" alt="rightclickmoddiscover">
+<div id="instructstofms"></div>
+<br><br><h3>for .image file</h3>
+<p>Click Open in -> Squeak</p>
+<img src="screenshots/modsetupsqueak.png" alt="modsetupsqueak">
+<br><br><h3>for .swf file</h3>
+<div class="note"> <h4>Note: You need to install <a href="https://www.newgrounds.com/flash/player">Newgrounds player</a>!</h4></div>
+<p>Click Open in -> NG player,</br>click .swf name, type in .swf name and press enter</p>
+<img src="screenshots/modsetupngplayer.png" alt="modsetupngplayer">
+<br><br><h3>for .exe and .lnk file</h3>
+<p>Click Open in -> Custom,<br>click .exe name and enter file name (with extension)</p>
+<img src="screenshots/modsetupcustom.png" alt="modsetupcustom">
+<br><br>
+<h3>Finish</h3><p>Click done, then press esc or close Friendly mod setup for SML in other way,<br>open created mod directory,<br>paste your mod in</p>
+<img src="screenshots/modsetupdone.png" alt="modsetupdone">
+<br><br><h2 id="setupmodmanualy">Setup a mod manualy</h2>
+<p>
+Click on folder icon next to Settings tab,<br>
+<img src="screenshots/openfoldr.png" alt="openfoldr"><br><br>
+open mods folder,<br>
+<img src="screenshots/modsdir.png" alt="modsdir"><br><br>
+rightclick > New > Folder, name it with your mod name, open that folder,<br>
+<img src="screenshots/newfolder.png" alt="newfolder"><br><br>
+rightclick > New > Text document, open it, <br>
+<img src="screenshots/newtextfile.png" alt="newtextfile"><br><br>
+Write:<div style="background-color: rgb(50, 50, 50); padding-left: 5px;"><code>name="[name]"<br>defold="[folder in SML]"</code></div>
+<br>
+replace [name] with mod name<br>
+replace [folder in SML] with any folder name (so your Launch tab will be organised)<br>
+<img src="screenshots/new.luawriting.png" alt="new.luawriting"><br><br>
+save the text file and rename it to new.lua<br>
+<img src="screenshots/new.luanaming.png" alt="new.luanaming"><br>
+<div class="note">Note: you need to have enabled show file extension,<br>in file explorer click on View tab and in Show/hide section enable File name extensions, <a href="https://fileinfo.com/help/windows_10_show_file_extensions">detailed instructions here</a></div><br>
+then go to SML root folder, open modsetup.exe and follow instructions <a href="#instructstofms">here</a><br>
+<img src="screenshots/modsetup.exe.png" alt="modsetup.exe"><br><br>
+<br>
+<h1 id="troubles">Troubles</h1>
+<h2 id="missingfiles">Missing files</h2>
+<div class="forerrors"><p>for errors:<br>
+    Could not open avalible.lua<br>Could not open settings.lua<br>nativefs/nativefs.lua:173: attempt to index local 'data' (a nil value)<br><br>Also works if you want to reset SML
+</p></div>
+<img src="screenshots/error.png" alt="errormissingfile">
+<p>Open SML directory,<br>
+and run update.exe<br>
+<img src="screenshots/update.exe.png" alt="update.exe"><br>
+</p>
+<br>
+<div id="missingsystemfiles" class="forerrors"><p>for errors:<br>
+The code execution cannot proceed because [file] was not found. Reinstalling program may fix this problem.
+</p></div>
+<img src="screenshots/systemerror.png" alt="errormissingsystemfile">
+<p>Go to <a href="https://love2d.org/">Love2D</a> site, download zipped version for Windows,<br>
+open the zip file in file explorer and copy missing files to SML directory<br>
+or just download SML again
+</p><br>
+<h2 id="longdownload">Update download is taking too much time/is stuck</h2>
+<p>
+Stop process - Open task manager, 
+select app labeled "LÖVE 11.4" and click End task at bottom right corner, repeat for "Windows Command Processor"<br>
+open SML directory,<br>
+delete update.exe,<br>
+download update.exe from <a href="https://github.com/Foxi135/ScratchModLauncher/raw/main/update.exe">here</a>, save it to SML directory and run it
+</p><br>
